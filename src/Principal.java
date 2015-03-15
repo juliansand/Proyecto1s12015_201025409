@@ -1,3 +1,10 @@
+
+import Almacenamiento.Almacenamiento_Aereopuerto;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -9,6 +16,11 @@
  * @author Julian
  */
 public class Principal extends javax.swing.JFrame {
+    
+    private Almacenamiento.Almacenamiento_Aereopuerto almcAereo;
+    private JDialog dlg;
+    private JTextArea ta;
+    private JScrollPane scrl;
 
     /**
      * Creates new form Principal
@@ -16,6 +28,7 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
         txtVueloEstado.setEditable(false);
+        almcAereo = new Almacenamiento_Aereopuerto();
     }
 
     /**
@@ -39,6 +52,8 @@ public class Principal extends javax.swing.JFrame {
         txtAereoNombre = new javax.swing.JTextField();
         txtAereoPais = new javax.swing.JTextField();
         txtAereoPass = new javax.swing.JTextField();
+        btnGuardarAereo = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -107,26 +122,47 @@ public class Principal extends javax.swing.JFrame {
 
         jLabel4.setText("Contraseña:");
 
+        btnGuardarAereo.setText("Guardar");
+        btnGuardarAereo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarAereoActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("jButton2");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(69, 69, 69)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(39, 39, 39)
-                        .addComponent(txtAereoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(69, 69, 69)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(39, 39, 39)
+                                .addComponent(txtAereoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel3))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtAereoPais)
+                                    .addComponent(txtAereoPass)))))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtAereoPais)
-                            .addComponent(txtAereoPass))))
+                        .addGap(201, 201, 201)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton2)
+                            .addComponent(btnGuardarAereo))))
                 .addContainerGap(176, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -145,7 +181,11 @@ public class Principal extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtAereoPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 170, Short.MAX_VALUE))
+                .addGap(53, 53, 53)
+                .addComponent(btnGuardarAereo)
+                .addGap(18, 18, 18)
+                .addComponent(jButton2)
+                .addGap(0, 53, Short.MAX_VALUE))
         );
 
         jTabbedPane6.addTab("Aereopuerto", jPanel4);
@@ -328,6 +368,55 @@ public class Principal extends javax.swing.JFrame {
         txtVueloEstado.setText("En Arribo");
     }//GEN-LAST:event_btnEstado3ActionPerformed
 
+    private void btnGuardarAereoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarAereoActionPerformed
+        if(almcAereo.setInfoEscrit(txtAereoNombre.getText(), txtAereoPais.getText(), txtAereoPass.getText())){
+            int opc = JOptionPane.showConfirmDialog(this, "Informacion a guardar \n\n" +
+                                                            almcAereo.getDatosAGuardar() +
+                                                            "\n\nDesea guardar esta informacion?",
+                                                    "Atencion", JOptionPane.YES_NO_OPTION);
+
+                        if(opc == JOptionPane.YES_OPTION){
+                            JOptionPane.showMessageDialog(this, "Datos guardados",
+                                                    "Listo", JOptionPane.INFORMATION_MESSAGE);
+                            almcAereo.guardar();
+                            this.limpiarAereo();
+                        }
+                        else{
+                            JOptionPane.showMessageDialog(this, "Datos no guardados",
+                                                    "Cancelado", JOptionPane.WARNING_MESSAGE);
+                        }
+        }
+        else{
+                JOptionPane.showMessageDialog(this, "No debe haber casillas vacias",
+                                                "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+    }//GEN-LAST:event_btnGuardarAereoActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.dlDatos(almcAereo.getDatos());
+            this.dlDatos(almcAereo.getDatos()).setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void limpiarAereo(){
+        txtAereoNombre.setText("");
+        txtAereoPais.setText("");
+        txtAereoPass.setText("");
+    }
+    
+    private JDialog dlDatos(String dats){
+
+        ta = new JTextArea(dats);
+        ta.setEditable(false);
+        scrl = new JScrollPane(ta);
+
+        dlg = new JDialog(this, "Datos Estudiantes", false);
+        dlg.setSize(500,400);
+        dlg.setLocationRelativeTo(null);
+        dlg.setContentPane(scrl);
+
+        return dlg;
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -365,8 +454,10 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEstado3;
+    private javax.swing.JButton btnGuardarAereo;
     private javax.swing.JButton btnestado2;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
