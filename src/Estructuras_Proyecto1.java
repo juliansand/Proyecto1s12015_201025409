@@ -14,7 +14,8 @@ public class Estructuras_Proyecto1 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Principal aereo = new Principal();
+        aereo.setVisible(true);
     }
     
 }
